@@ -22,13 +22,11 @@ function process(file, canvas, callback) {
   };
   inputimg.onload = () => {
     estimator.loadAndPredict(inputimg, canvas).then(async (segmentation) => {
-      try {
-        hipsize = await estimator.measureSize(segmentation, canvas.getContext("2d"), 1);
-        waistsize = await estimator.measureSize(segmentation, canvas.getContext("2d"), 0.56);
-        callback({ hipsize, waistsize });
-      } catch (err) {
-        callback("인식불가");
-      }
+      console.log(segmentation);
+
+      hipsize = await estimator.measureSize(segmentation, canvas.getContext("2d"), 1);
+      waistsize = await estimator.measureSize(segmentation, canvas.getContext("2d"), 0.56);
+      callback({ hipsize, waistsize });
     });
   };
 }

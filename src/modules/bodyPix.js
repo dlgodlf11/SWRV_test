@@ -22,6 +22,15 @@ exports.measureSize = function(segmentation, ctx, location_const) {
   var image = ctx.getImageData(0, 0, ctx.canvas.width, ctx.canvas.height);
 
   var width = segmentation.width;
+
+  if (
+    segmentation.allPoses[0].keypoints[5].score < 0.8 ||
+    segmentation.allPoses[0].keypoints[6].score < 0.8 ||
+    segmentation.allPoses[0].keypoints[11].score < 0.8 ||
+    segmentation.allPoses[0].keypoints[12].score < 0.8
+  ) {
+    return 0;
+  }
   var neck_x = (segmentation.allPoses[0].keypoints[5].position.x + segmentation.allPoses[0].keypoints[6].position.x) / 2;
   var neck_y = (segmentation.allPoses[0].keypoints[5].position.y + segmentation.allPoses[0].keypoints[6].position.y) / 2;
 
@@ -54,7 +63,6 @@ exports.measureSize = function(segmentation, ctx, location_const) {
 
     var point = nextx + nexty;
     var opoint = nextox + nextoy;
-
     if (segmentation.data[point / 4] != -1) {
       image.data[point] = 255;
       distance += 1;

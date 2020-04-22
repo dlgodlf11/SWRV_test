@@ -26,7 +26,6 @@ exports.getOrientation = function(buffer) {
 exports.rotateimge = function(img, orientation) {
   var canvas = document.createElement("canvas");
   var ctx = canvas.getContext("2d");
-
   var width = img.width;
   var height = img.height;
 

@@ -12,11 +12,23 @@
         color="grey darken-3"
         label="키"
         hint="Be honest"
-        :thumb-size="30"
         min="1"
         max="300"
-        thumb-label="always"
-      ></v-slider>
+        thumb-color="red"
+        thumb-label
+        hide-details
+      >
+        <template v-slot:append>
+          <v-text-field
+            v-model="tall"
+            class="mt-0 pt-0"
+            hide-details
+            single-line
+            type="number"
+            style="width: 60px"
+          ></v-text-field>
+        </template>
+      </v-slider>
     </v-row>
 
     <v-row align="center" justify="space-around">
@@ -25,11 +37,23 @@
         color="grey darken-3"
         label="몸무게"
         hint="Be honest"
-        :thumb-size="30"
         min="1"
         max="200"
-        thumb-label="always"
-      ></v-slider>
+        thumb-color="red"
+        thumb-label
+        hide-details
+      >
+        <template v-slot:append>
+          <v-text-field
+            v-model="kg"
+            class="mt-0 pt-0"
+            hide-details
+            single-line
+            type="number"
+            style="width: 60px"
+          ></v-text-field>
+        </template>
+      </v-slider>
     </v-row>
     <v-row align="center" justify="space-around">
       <v-file-input accept="image/*" label="정면 사진." prepend-icon="mdi-camera" v-model="frontimg"></v-file-input>
@@ -46,7 +70,7 @@
 
     <v-row align="center" justify="space-between">
       <v-col align="start">
-        <v-btn @click="$router.go()">초기화</v-btn>
+        <v-btn @click="resetdata">초기화</v-btn>
       </v-col>
       <v-col align="end">
         <v-btn @click="onclick">측정하기</v-btn>
@@ -57,7 +81,7 @@
     </v-row>
     <v-row align="center" justify="center">
       <v-col cols="6" align="center">
-        <h3>{{ msg }}</h3>
+        <h4>{{ msg }}</h4>
       </v-col>
     </v-row>
     <v-row align="center" justify="center" v-if="processend">
@@ -113,48 +137,75 @@ export default {
         this.active = true;
         const canvasFront = document.getElementById("canvasFront");
         const canvasSide = document.getElementById("canvasSide");
-
-        processimg(this.frontimg, canvasFront, result => {
-          if (result == "인식불가") {
-            this.msg = "인식불가";
-            this.active = false;
-          }
-          this.frontwhr = result.waistsize / result.hipsize;
-
-          processimg(this.sideimg, canvasSide, result2 => {
-            if (result == "인식불가") {
-              this.msg = "인식불가";
+        try {
+          processimg(this.frontimg, canvasFront, result => {
+            if (result.hipsize == 0) {
+              this.msg = "(인식불가)하반신이 인식되지 않습니다.";
               this.active = false;
-              return;
             }
-            this.active = false;
-            this.processend = true;
-            this.sidewhr = result2.waistsize / result2.hipsize;
-            this.bmi =
-              this.kg / (((this.tall / 100) * this.tall) / 100).toFixed(2);
-            this.whr = this.sidewhr * this.frontwhr;
-            console.log("처리전", this.bmi, this.whr);
-            if (this.gender == "여")
-              this.bmi = this.bmi * (this.sidewhr * this.frontwhr + 0.15);
-            else this.bmi = this.bmi * (this.sidewhr * this.frontwhr);
-            this.bmi;
-            console.log("처리후", this.bmi);
+            this.frontwhr = result.waistsize / result.hipsize;
 
-            if (this.bmi <= 18.5) {
-              this.msg = this.bmi.toFixed(2) + " 저체중입니다";
-            } else if (this.bmi < 23) {
-              this.msg = this.bmi.toFixed(2) + " 정상입니다";
-            } else if (this.bmi < 25) {
-              this.msg = this.bmi.toFixed(2) + " 과체중입니다";
-            } else if (this.bmi > 25) {
-              this.msg = this.bmi.toFixed(2) + " 비만입니다";
-            }
-            // console.log(this.bmi, this.sidewhr * this.frontwhr);
+            processimg(this.sideimg, canvasSide, result2 => {
+              if (result.hipsize == 0) {
+                this.msg = "(인식불가)하반신이 인식되지 않습니다.";
+                this.active = false;
+              }
+              this.active = false;
+              this.processend = true;
+              this.sidewhr = result2.waistsize / result2.hipsize;
+              this.bmi =
+                this.kg / (((this.tall / 100) * this.tall) / 100).toFixed(2);
+              this.whr = this.sidewhr * this.frontwhr;
+              console.log("처리전", this.bmi, this.whr);
+              if (this.gender == "여")
+                this.bmi = this.bmi * (this.sidewhr * this.frontwhr + 0.15);
+              else this.bmi = this.bmi * (this.sidewhr * this.frontwhr);
+              this.bmi;
+              console.log("처리후", this.bmi);
+
+              if (this.bmi <= 18.5) {
+                this.msg = this.bmi.toFixed(2) + " 저체중입니다";
+              } else if (this.bmi < 23) {
+                this.msg = this.bmi.toFixed(2) + " 정상입니다";
+              } else if (this.bmi < 25) {
+                this.msg = this.bmi.toFixed(2) + " 과체중입니다";
+              } else if (this.bmi > 25) {
+                this.msg = this.bmi.toFixed(2) + " 비만입니다";
+              }
+              // console.log(this.bmi, this.sidewhr * this.frontwhr);
+            });
+
+            console.log(1);
           });
-
-          console.log(1);
-        });
+        } catch (err) {
+          this.msg = err;
+        }
       }
+    },
+    resetdata() {
+      this.frontimg = undefined;
+      this.sideimg = undefined;
+      this.frontwhr = undefined;
+      this.sidewhr = undefined;
+      this.gender = undefined;
+      this.tall = 170;
+      this.kg = 70;
+      this.bmi = 0;
+      this.whr = 0;
+      this.processend = false;
+      this.active = false;
+      this.msg = "";
+
+      var cnvs = document.getElementById("canvasFront");
+      var ctx = cnvs.getContext("2d");
+
+      ctx.clearRect(0, 0, cnvs.width, cnvs.height);
+      ctx.beginPath();
+      var cnvs = document.getElementById("canvasSide");
+      var ctx = cnvs.getContext("2d");
+
+      ctx.clearRect(0, 0, cnvs.width, cnvs.height);
+      ctx.beginPath();
     }
   }
 };
