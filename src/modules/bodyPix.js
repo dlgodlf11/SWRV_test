@@ -24,10 +24,10 @@ exports.measureSize = function(segmentation, ctx, location_const) {
   var width = segmentation.width;
 
   if (
-    segmentation.allPoses[0].keypoints[5].score < 0.6 ||
-    segmentation.allPoses[0].keypoints[6].score < 0.6 ||
-    segmentation.allPoses[0].keypoints[11].score < 0.6 ||
-    segmentation.allPoses[0].keypoints[12].score < 0.6
+    segmentation.allPoses[0].keypoints[5].score < 0.5 ||
+    segmentation.allPoses[0].keypoints[6].score < 0.5 ||
+    segmentation.allPoses[0].keypoints[11].score < 0.5 ||
+    segmentation.allPoses[0].keypoints[12].score < 0.5
   ) {
     return 0;
   }

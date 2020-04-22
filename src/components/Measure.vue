@@ -1,4 +1,4 @@
-<template class="noscroll">
+<template>
   <v-container class="fill-height px-6" fluid>
     <v-row align="center" justify="center">
       <h1>Measure</h1>
@@ -228,11 +228,5 @@ export default {
 canvas {
   max-width: 100%;
   height: auto;
-}
-.noscroll {
-  overflow: hidden;
-  position: fixed;
-  height: 100%;
-  width: 100%;
 }
 </style>
