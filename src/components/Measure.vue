@@ -4,7 +4,7 @@
       <h1>Measure</h1>
     </v-row>
     <v-row align="center" justify="center">
-      <h3 class="pb-4">check your fat</h3>
+      <p class="pb-4">check your fat</p>
     </v-row>
     <v-row align="center" justify="space-around">
       <v-slider
