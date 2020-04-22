@@ -1,20 +1,21 @@
 <template>
-  <v-container class="fill-height" fluid>
-    <v-row align="center" justify="start">
+  <v-container class="fill-height px-6" fluid>
+    <v-row align="center" justify="center">
       <h1>Measure</h1>
     </v-row>
-    <v-row align="center" justify="start">
-      <h3>check your fat</h3>
+    <v-row align="center" justify="center">
+      <h3 class="pb-4">check your fat</h3>
     </v-row>
     <v-row align="center" justify="space-around">
       <v-slider
+        class="py-4"
         v-model="tall"
         color="grey darken-3"
         label="키"
         hint="Be honest"
         min="1"
         max="300"
-        thumb-color="red"
+        thumb-color="light-green "
         thumb-label
         hide-details
       >
@@ -33,13 +34,14 @@
 
     <v-row align="center" justify="space-around">
       <v-slider
+        class="py-4"
         v-model="kg"
         color="grey darken-3"
         label="몸무게"
         hint="Be honest"
         min="1"
         max="200"
-        thumb-color="red"
+        thumb-color="light-green "
         thumb-label
         hide-details
       >
@@ -56,10 +58,22 @@
       </v-slider>
     </v-row>
     <v-row align="center" justify="space-around">
-      <v-file-input accept="image/*" label="정면 사진." prepend-icon="mdi-camera" v-model="frontimg"></v-file-input>
+      <v-file-input
+        accept="image/*"
+        color="light-green "
+        label="정면 사진."
+        prepend-icon="mdi-camera"
+        v-model="frontimg"
+      ></v-file-input>
     </v-row>
     <v-row align="center" justify="end">
-      <v-file-input accept="image/*" label="측면 사진." prepend-icon="mdi-camera" v-model="sideimg"></v-file-input>
+      <v-file-input
+        accept="image/*"
+        color="light-green "
+        label="측면 사진."
+        prepend-icon="mdi-camera"
+        v-model="sideimg"
+      ></v-file-input>
     </v-row>
     <v-row align="center" justify="end">
       <v-radio-group v-model="gender" :mandatory="false" row>

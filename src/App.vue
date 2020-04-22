@@ -60,6 +60,7 @@ export default {
 <style>
 .fontresize {
   font-size: 2.6vw;
+  font-size: 14px;
 }
 #toolbar_title {
   color: inherit;
