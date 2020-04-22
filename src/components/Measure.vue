@@ -46,7 +46,7 @@
 
     <v-row align="center" justify="space-between">
       <v-col align="start">
-        <v-btn @click="$router.go('/Checkbody')">초기화</v-btn>
+        <v-btn @click="$router.go()">초기화</v-btn>
       </v-col>
       <v-col align="end">
         <v-btn @click="onclick">측정하기</v-btn>
