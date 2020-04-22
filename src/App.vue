@@ -36,7 +36,9 @@
 
     <v-footer app>
       <span>&copy; {{ new Date().getFullYear() }}</span>
-      <span>(주) 스월브 | CEO : 윤지현 | LINK : www.swrvio.com, 부산 남구 전포대로 133, 제오피스호 13층(문현동) | CONTACT : +82 10-9520-3919</span>
+      <span
+        class="fontresize"
+      >(주) 스월브 | CEO : 윤지현 | LINK : www.swrvio.com, 부산 남구 전포대로 133, 제오피스호 13층(문현동) | CONTACT : +82 10-9520-3919</span>
     </v-footer>
   </v-app>
 </template>
@@ -56,6 +58,9 @@ export default {
 };
 </script>
 <style>
+.fontresize {
+  font-size: 2.6vw;
+}
 #toolbar_title {
   color: inherit;
   text-decoration: inherit;
