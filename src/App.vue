@@ -18,6 +18,14 @@
             <v-list-item-title>Measure</v-list-item-title>
           </v-list-item-content>
         </v-list-item>
+        <v-list-item :to="'/Training'" link>
+          <v-list-item-action>
+            <v-icon>mdi-weight-lifter</v-icon>
+          </v-list-item-action>
+          <v-list-item-content>
+            <v-list-item-title>Training</v-list-item-title>
+          </v-list-item-content>
+        </v-list-item>
       </v-list>
     </v-navigation-drawer>
 

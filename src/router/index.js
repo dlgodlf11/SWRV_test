@@ -2,6 +2,7 @@ import Vue from "vue";
 import VueRouter from "vue-router";
 import Home from "../views/Home.vue";
 import CheckBody from "../views/CheckBody.vue";
+import Training from "../views/Training.vue";
 Vue.use(VueRouter);
 
 const routes = [
@@ -14,6 +15,11 @@ const routes = [
     path: "/CheckBody",
     name: "CheckBody",
     component: CheckBody,
+  },
+  {
+    path: "/Training",
+    name: "Training",
+    component: Training,
   },
 ];
 
