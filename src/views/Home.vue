@@ -1,6 +1,6 @@
 <template>
   <div class="home">
-    <HelloGuest msg="Welcome to Your Vue.js App" />
+    <HelloGuest />
   </div>
 </template>
 
@@ -11,7 +11,7 @@ import HelloGuest from "@/components/HelloGuest.vue";
 export default {
   name: "Home",
   components: {
-    HelloGuest,
-  },
+    HelloGuest
+  }
 };
 </script>
