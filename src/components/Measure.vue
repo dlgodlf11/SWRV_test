@@ -94,8 +94,66 @@
       <v-progress-linear :active="active" indeterminate height="4" color="yellow darken-2"></v-progress-linear>
     </v-row>
     <v-row align="center" justify="center">
-      <v-col cols="6" align="center">
-        <h4>{{ msg }}</h4>
+      <v-col cols="12" align="center">
+        <h3>{{ msg }}</h3>
+
+        <v-dialog v-model="dialog" width="500">
+          <template v-slot:activator="{ on }">
+            <v-btn v-show="hidden" color="grey darken-1" dark v-on="on" block>이제 어쩌죠?</v-btn>
+          </template>
+
+          <v-card v-if="bmi <= 18.5">
+            <v-card-title primary-title>저체중이니까</v-card-title>
+
+            <v-card-text>이거저거이거저거이거저거이거저거이거저거이거저거이거저거이거저거이거저거이거저거이거저거이거저거이거저거이거저거이거저거</v-card-text>
+
+            <v-divider></v-divider>
+
+            <v-card-actions>
+              <v-spacer></v-spacer>
+              <v-btn text @click="dialog = false">확인</v-btn>
+            </v-card-actions>
+          </v-card>
+
+          <v-card v-else-if="bmi <= 23">
+            <v-card-title primary-title>정상이네요</v-card-title>
+
+            <v-card-text>평소 하던대로 알아서해요</v-card-text>
+
+            <v-divider></v-divider>
+
+            <v-card-actions>
+              <v-spacer></v-spacer>
+              <v-btn text @click="dialog = false">확인</v-btn>
+            </v-card-actions>
+          </v-card>
+
+          <v-card v-else-if="bmi <= 25">
+            <v-card-title primary-title>과체중이네요</v-card-title>
+
+            <v-card-text>내생각엔 과체중도 정상</v-card-text>
+
+            <v-divider></v-divider>
+
+            <v-card-actions>
+              <v-spacer></v-spacer>
+              <v-btn text @click="dialog = false">확인</v-btn>
+            </v-card-actions>
+          </v-card>
+
+          <v-card v-else-if="bmi > 25">
+            <v-card-title primary-title>비만 음...</v-card-title>
+
+            <v-card-text>음......</v-card-text>
+
+            <v-divider></v-divider>
+
+            <v-card-actions>
+              <v-spacer></v-spacer>
+              <v-btn text @click="dialog = false">확인</v-btn>
+            </v-card-actions>
+          </v-card>
+        </v-dialog>
       </v-col>
     </v-row>
     <v-row align="center" justify="center" v-if="processend">
@@ -133,7 +191,9 @@ export default {
       whr: 0,
       processend: false,
       active: false,
-      msg: ""
+      msg: "",
+      hidden: false,
+      dialog: false
     };
   },
   methods: {
@@ -176,7 +236,7 @@ export default {
               else this.bmi = this.bmi * (this.sidewhr * this.frontwhr);
               this.bmi;
               console.log("처리후", this.bmi);
-
+              this.hidden = true;
               if (this.bmi <= 18.5) {
                 this.msg = this.bmi.toFixed(2) + " 저체중입니다";
               } else if (this.bmi < 23) {
